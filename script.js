@@ -7,9 +7,24 @@ var arrayWord = word.split("");
 
 
 for(i = 0; i<arrayWord.length; i++){
+    var bokstav = document.createElement("P");
+    bokstav.setAttribute("class", "yikes");
+    bokstav.setAttribute("class", arrayWord[i]);
+    bokstav.style.visibility = "hidden";
+    bokstav.innerHTML = arrayWord[i];
+    var ordPlasement = get("ord");
+    ordPlasement.appendChild(bokstav);
+}
+function testLetter(){
+    stringToTest = get("myText");
+    string = stringToTest.value;
+    if(word.includes(string)){
+        console.log("tikes");
+        var show = get(string);
+        show.style.visibility = "visible";
+    }
 
 }
-
 
 var c = get("myCanvas");
 var ctx = c.getContext("2d");
@@ -18,10 +33,7 @@ ctx.canvas.height = 0.25 * screenHeight;
 ctx.moveTo(0, 0);
 ctx.stroke();
 
-function testLetter(){
-    stringToTest = get("myText");
-    console.log(stringToTest.value);
-}
+
 function draw(){
     console.log(partsTracker);
     if (partsTracker == 0){
@@ -89,3 +101,4 @@ function draw(){
 function get(a){
     return document.getElementById(a);
 }
+
