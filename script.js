@@ -1,14 +1,23 @@
 /*  Made by Rolf Martin Glomsrud from 13.01.2020 to 15.01.2020
     Example of a project that is feasable for a student that has
     had Informasjonsteknologi 2*/
+var words = [
+    "scarf", "elbow", "cactus", "society", "aftermath", "fang", "bushes",
+    "furniture", "throat", "downtown", "rain", "soup", "regret", "tiger",
+    "vest", "line", "smash", "screw", "plate", "plate", "stage", "test", "boy", 
+    "nest", "cherries", "cakes", "meat", "dolls", "spoon", "pot", "kiss", "measure",
+    "eyes", "shock", "smile", "scissors", "stomach", "ice", "root", "leather"
+
+]
 
 
+var randomNumber = Math.floor((Math.random()*40)+1);
 var screenWidth = screen.width;
 var screenHeight = screen.height;
 var partsTracker = 0
 var guessed = [];
 var tries = 9;
-var word = "babaganoush";
+var word = words[randomNumber];
 var arrayWord = word.split("");
 var whatTheUserSees = [];
 var feil = [];
@@ -25,7 +34,8 @@ get("tries").innerHTML = tries;
 
 //check if word is guessed already
 function sjekkOrd(){
-    var guessOrd = get("myTextWord").value;
+    var guessOrd1 = get("myTextWord").value;
+    guessOrd = guessOrd1.toLowerCase();
     get("myTextWord").innerHTML = "";
     if (guessOrd == get("ord").innerHTML){
         alert("Spillet er over")
@@ -45,7 +55,8 @@ function testWord(){
         get("myTextWord").value="";
     }else{
         //grabs the guess from HTML
-        var guessedWord = get("myTextWord").value;
+        var guessedWord1 = get("myTextWord").value;
+        var guessedWord = guessedWord1.toLowerCase();
         //adds it to the array of guessed words
         guessed.push(guessedWord);
         //checks if it was correct
@@ -69,13 +80,21 @@ function testWord(){
             //draws a piece of hangman
             draw();
         }
+        if (tries == 0){
+            get("result").innerHTML = "Beklager, du tapte, ordet var " + word;
+        }else if(whatTheUserSeesWord == word){
+            get("result").innerHTML = "Gratulerer, du gjettet ordet!";
+        }
+        //removes the guess from the text input, ready for new guess
+        get("myText").value = "";
     }
 }
 
 
 //checks if it is guessed
 function sjekkBokstav(){
-    var guess = get("myText").value;
+    var guess1 = get("myText").value;
+    var guess = guess1.toLowerCase();
     if (guessed.includes(guess)){
         alert("Du har allerede gjettet den bokstaven, venligst gjett en ny!");
     }else{
@@ -90,7 +109,9 @@ function testLetter(){
         get("myText").value = "";
     }else{
         //grabs the guess from HTML
-        var guess = get("myText").value;
+        var guess1 = get("myText").value;
+        var guess = guess1.toLowerCase();
+
         guessed.push(guess);
         //checks if the letter is in the word
         if (arrayWord.includes(guess)){
@@ -114,7 +135,7 @@ function testLetter(){
         document.getElementById("ord").innerHTML = whatTheUserSeesWord;
         //checks if the user lost
         if (tries == 0){
-            get("result").innerHTML = "Beklager, du tapte";
+            get("result").innerHTML = "Beklager, du tapte, ordet var " + word;
         }else if(whatTheUserSeesWord == word){
             get("result").innerHTML = "Gratulerer, du gjettet ordet!";
         }
