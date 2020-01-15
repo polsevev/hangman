@@ -1,7 +1,6 @@
 var screenWidth = screen.width;
 var screenHeight = screen.height;
 var partsTracker = 0
-
 var guessed = [];
 var tries = 9;
 var word = "babaganoush";
@@ -41,6 +40,14 @@ function testWord(){
         if (word == guessedWord){
             get("result").innerHTML = "Gratulerer, du gjettet ordet!";
             get("ord").innerHTML = word;
+        }else{
+            tries -= 1;
+            feil.push(guessedWord);
+            var earlier = get("wrongLetters").innerHTML;
+            var nyInner = earlier + " " + guessedWord;
+            get("wrongLetters").innerHTML = nyInner;
+            get("tries").innerHTML = tries;
+            draw();
         }
     }
 }
