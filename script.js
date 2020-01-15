@@ -1,3 +1,8 @@
+/*  Made by Rolf Martin Glomsrud from 13.01.2020 to 15.01.2020
+    Example of a project that is feasable for a student that has
+    had Informasjonsteknologi 2*/
+
+
 var screenWidth = screen.width;
 var screenHeight = screen.height;
 var partsTracker = 0
@@ -8,53 +13,69 @@ var arrayWord = word.split("");
 var whatTheUserSees = [];
 var feil = [];
 
-
+//makes an array of _ to show to the user
 for (i=0; i < arrayWord.length; i++){
     whatTheUserSees.push("_");
 }
 
+//converts the array from above to a string, then puts it into the HTML
 var whatTheUserSeesWord = whatTheUserSees.join("");
 document.getElementById("ord").innerHTML = whatTheUserSeesWord;
 get("tries").innerHTML = tries;
 
-
+//check if word is guessed already
 function sjekkOrd(){
     var guessOrd = get("myTextWord").value;
     get("myTextWord").innerHTML = "";
     if (guessOrd == get("ord").innerHTML){
         alert("Spillet er over")
-    }else if(guessed.includes(guessOrd)){
-        alert("Du har allerede gjettet det ordet!")
     }else{
         testWord();
     }
 }
 
+
 function testWord(){
+    //check if user has more tries
     if (tries <= 0){
         alert("Spillet er ferdig, venligst restart siden for å prøve igjen");
-        get("myText").value = "";
+        get("myTextWord").value = "";
+    }else if(get("ord").innerHTML==word){
+        alert("Spillet er ferdig, venligst restart siden for å prøve igjen")
+        get("myTextWord").value="";
     }else{
+        //grabs the guess from HTML
         var guessedWord = get("myTextWord").value;
+        //adds it to the array of guessed words
         guessed.push(guessedWord);
+        //checks if it was correct
         if (word == guessedWord){
             get("result").innerHTML = "Gratulerer, du gjettet ordet!";
             get("ord").innerHTML = word;
+            get("myTextWord").value = "";
+        //this plays if the guess was wrong
         }else{
+            get("myTextWord").value = "";
+            //removes a try
             tries -= 1;
+            //adds it to wrong words guessed array
             feil.push(guessedWord);
+            //shows user the wrong word was guessed
             var earlier = get("wrongLetters").innerHTML;
             var nyInner = earlier + " " + guessedWord;
             get("wrongLetters").innerHTML = nyInner;
+            //updates the amount of tries
             get("tries").innerHTML = tries;
+            //draws a piece of hangman
             draw();
         }
     }
 }
 
+
+//checks if it is guessed
 function sjekkBokstav(){
     var guess = get("myText").value;
-    console.log(guess);
     if (guessed.includes(guess)){
         alert("Du har allerede gjettet den bokstaven, venligst gjett en ny!");
     }else{
@@ -63,20 +84,23 @@ function sjekkBokstav(){
 }
 
 function testLetter(){
-    
+    //checks if the user is out of tries or they are done guessing
     if (tries <= 0 || get("ord").innerHTML == word){
         alert("Spillet er ferdig, venligst restart siden for å prøve igjen");
         get("myText").value = "";
     }else{
-        console.log(guessed);
+        //grabs the guess from HTML
         var guess = get("myText").value;
         guessed.push(guess);
+        //checks if the letter is in the word
         if (arrayWord.includes(guess)){
+            //runs through the array of the word and changes the array of _ at the right position
             for (i=0; i < arrayWord.length; i++){
                 if (guess == arrayWord[i]){
                     whatTheUserSees[i] = guess;
                 }
             }
+        //if it is wrong it does the same as a wrong word guess at line 48
         }else{
             tries -= 1;
             feil.push(guess);
@@ -88,19 +112,23 @@ function testLetter(){
         }
         var whatTheUserSeesWord = whatTheUserSees.join("");
         document.getElementById("ord").innerHTML = whatTheUserSeesWord;
+        //checks if the user lost
         if (tries == 0){
             get("result").innerHTML = "Beklager, du tapte";
         }else if(whatTheUserSeesWord == word){
             get("result").innerHTML = "Gratulerer, du gjettet ordet!";
         }
+        //removes the guess from the text input, ready for new guess
         get("myText").value = "";
     }
     
 
 }
 
+//initializing canvas
 var c = get("myCanvas");
 var ctx = c.getContext("2d");
+//defining canvas size
 ctx.canvas.width = 0.25 * screenWidth;
 ctx.canvas.height = 0.25 * screenHeight;
 ctx.moveTo(0, 0);
@@ -170,6 +198,8 @@ function draw(){
         partsTracker += 1
     }
 }
+
+//function to not write document.getElementById();
 function get(a){
     return document.getElementById(a);
 }

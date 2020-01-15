@@ -21,23 +21,29 @@
       <input type="text" id="myText" class="css-input" value="" onkeyup="if(event.keyCode===13) {event.preventDefault(); sjekkBokstav();}">
       <input type="button" class="myButton" id="testKnapp" width="40px" height="40px" value="Test!" onclick="sjekkBokstav()">
     </div>
-    
+    <!--Div containing the field to guess the letters in the word-->
     <div class="guessField">
       <h2>Gjett ord</h2>
       <input type="text" class="css-input" id="myTextWord" onkeyup="if(event.keyCode===13) {event.preventDefault(); sjekkOrd();}">
       <input type="button" class="myButton" id="testOrdKnapp" width="40px" height="40px" value="Test ord!" onclick="sjekkOrd()">
     </div>
-    <div class="resultField">
+    <!--Div containing the guessWord field-->
+    <div id="resultField">
       <h2>Feil:</h2>
       <p id="wrongLetters"></p>
       <h2>Antall forsøk igjen:</h2>
       <p id="tries"></p>
     </div>
-    <div class="resultField1">
+    <!--the result field containing the guessed word -->
+    <div id="resultField1">
       <h2>Ordet så langt:</h2>
       <p id="ord"></p>
-      <script src="script.js"></script>
+     
     </div>
-    <h2 id="result"></h2>
+    <!-- containing if the user has won or lost after the game is over -->
+    <div id="resultField2">
+      <h2 id="result"></h2>
+    </div>
+  <script src="script.js"></script>
 </body>
 </html>
