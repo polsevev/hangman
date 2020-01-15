@@ -1,8 +1,7 @@
-.ord{
+#ord{
+    overflow: hidden;
+}
+.yikes {
     float: left;
     padding: 5px;
-}
-#yikes {
-
-    overflow: hidden;
 }

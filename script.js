@@ -1,28 +1,41 @@
 var screenWidth = screen.width;
 var screenHeight = screen.height;
-partsTracker = 0
+var partsTracker = 0
 
+var tries = 8;
 var word = "babaganoush";
 var arrayWord = word.split("");
+var whatTheUserSees = [];
+var feil = [];
 
-
-for(i = 0; i<arrayWord.length; i++){
-    var bokstav = document.createElement("P");
-    bokstav.setAttribute("class", "yikes");
-    bokstav.setAttribute("class", arrayWord[i]);
-    bokstav.style.visibility = "hidden";
-    bokstav.innerHTML = arrayWord[i];
-    var ordPlasement = get("ord");
-    ordPlasement.appendChild(bokstav);
+for (i=0; i < arrayWord.length; i++){
+    whatTheUserSees.push("_");
 }
+
+var whatTheUserSeesWord = whatTheUserSees.join("");
+document.getElementById("ord").innerHTML = whatTheUserSeesWord;
+get("tries").innerHTML = tries;
+
 function testLetter(){
-    stringToTest = get("myText");
-    string = stringToTest.value;
-    if(word.includes(string)){
-        console.log("tikes");
-        var show = get(string);
-        show.style.visibility = "visible";
+    var guess = get("myText").value;
+    if (arrayWord.includes(guess)){
+        for (i=0; i < arrayWord.length; i++){
+            if (guess == arrayWord[i]){
+                whatTheUserSees[i] = guess;
+            }
+        }
+    }else{
+        console.log(guess);
+        tries -= 1;
+        feil.push(guess);
+        var earlier = get("wrongLetters").innerHTML;
+        var nyInner = earlier + " " + guess;
+        get("wrongLetters").innerHTML = nyInner;
+        get("tries").innerHTML = tries;
+        draw();
     }
+    var whatTheUserSeesWord = whatTheUserSees.join("");
+    document.getElementById("ord").innerHTML = whatTheUserSeesWord;
 
 }
 
@@ -35,7 +48,6 @@ ctx.stroke();
 
 
 function draw(){
-    console.log(partsTracker);
     if (partsTracker == 0){
         partsTracker += 1
         //draw platform
