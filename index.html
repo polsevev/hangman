@@ -17,8 +17,15 @@
     <h1>Hangman 2020 av Rolf Martin Glomsrud</h1>
     <canvas id="myCanvas"></canvas>
     <div>
-        <input type="text" id="myText", value="">
-        <input type="button" id="testKnapp" width="40px" height="40px" value="Test!" onclick="testLetter()">
+      <h2>Gjett bokstaver</h2>
+      <input type="text" id="myText" value="" onkeyup="if(event.keyCode===13) {event.preventDefault(); sjekkBokstav();}">
+      <input type="button" id="testKnapp" width="40px" height="40px" value="Test!" onclick="sjekkBokstav()">
+    </div>
+    
+    <div>
+      <h2>Gjett ord</h2>
+      <input type="text" id="myTextWord" onkeyup="if(event.keyCode===13) {event.preventDefault(); sjekkOrd();}">
+      <input type="button" id="testOrdKnapp" width="40px" height="40px" value="Test ord!" onclick="sjekkOrd()">
     </div>
     <h2>Feil:</h2>
     <p id="wrongLetters"></p>
@@ -27,14 +34,8 @@
     
     <h2>Ordet så langt:</h2>
     <p id="ord"></p>
-        
-
-
-
-
-
-
-
     <script src="script.js"></script>
+
+    <h2 id="result"></h2>
 </body>
 </html>

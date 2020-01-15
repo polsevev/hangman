@@ -2,11 +2,13 @@ var screenWidth = screen.width;
 var screenHeight = screen.height;
 var partsTracker = 0
 
-var tries = 8;
+var guessed = [];
+var tries = 9;
 var word = "babaganoush";
 var arrayWord = word.split("");
 var whatTheUserSees = [];
 var feil = [];
+
 
 for (i=0; i < arrayWord.length; i++){
     whatTheUserSees.push("_");
@@ -16,26 +18,77 @@ var whatTheUserSeesWord = whatTheUserSees.join("");
 document.getElementById("ord").innerHTML = whatTheUserSeesWord;
 get("tries").innerHTML = tries;
 
-function testLetter(){
-    var guess = get("myText").value;
-    if (arrayWord.includes(guess)){
-        for (i=0; i < arrayWord.length; i++){
-            if (guess == arrayWord[i]){
-                whatTheUserSees[i] = guess;
-            }
-        }
+
+function sjekkOrd(){
+    var guessOrd = get("myTextWord").value;
+    get("myTextWord").innerHTML = "";
+    if (guessOrd == get("ord").innerHTML){
+        alert("Spillet er over")
+    }else if(guessed.includes(guessOrd)){
+        alert("Du har allerede gjettet det ordet!")
     }else{
-        console.log(guess);
-        tries -= 1;
-        feil.push(guess);
-        var earlier = get("wrongLetters").innerHTML;
-        var nyInner = earlier + " " + guess;
-        get("wrongLetters").innerHTML = nyInner;
-        get("tries").innerHTML = tries;
-        draw();
+        testWord();
     }
-    var whatTheUserSeesWord = whatTheUserSees.join("");
-    document.getElementById("ord").innerHTML = whatTheUserSeesWord;
+}
+
+function testWord(){
+    if (tries <= 0){
+        alert("Spillet er ferdig, venligst restart siden for å prøve igjen");
+        get("myText").value = "";
+    }else{
+        var guessedWord = get("myTextWord").value;
+        guessed.push(guessedWord);
+        if (word == guessedWord){
+            get("result").innerHTML = "Gratulerer, du gjettet ordet!";
+            get("ord").innerHTML = word;
+        }
+    }
+}
+
+function sjekkBokstav(){
+    var guess = get("myText").value;
+    console.log(guess);
+    if (guessed.includes(guess)){
+        alert("Du har allerede gjettet den bokstaven, venligst gjett en ny!");
+    }else{
+        testLetter();
+    }
+}
+
+function testLetter(){
+    
+    if (tries <= 0 || get("ord").innerHTML == word){
+        alert("Spillet er ferdig, venligst restart siden for å prøve igjen");
+        get("myText").value = "";
+    }else{
+        console.log(guessed);
+        var guess = get("myText").value;
+        guessed.push(guess);
+        if (arrayWord.includes(guess)){
+            for (i=0; i < arrayWord.length; i++){
+                if (guess == arrayWord[i]){
+                    whatTheUserSees[i] = guess;
+                }
+            }
+        }else{
+            tries -= 1;
+            feil.push(guess);
+            var earlier = get("wrongLetters").innerHTML;
+            var nyInner = earlier + " " + guess;
+            get("wrongLetters").innerHTML = nyInner;
+            get("tries").innerHTML = tries;
+            draw();
+        }
+        var whatTheUserSeesWord = whatTheUserSees.join("");
+        document.getElementById("ord").innerHTML = whatTheUserSeesWord;
+        if (tries == 0){
+            get("result").innerHTML = "Beklager, du tapte";
+        }else if(whatTheUserSeesWord == word){
+            get("result").innerHTML = "Gratulerer, du gjettet ordet!";
+        }
+        get("myText").value = "";
+    }
+    
 
 }
 
