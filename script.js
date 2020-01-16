@@ -38,7 +38,7 @@ function sjekkOrd(){
     guessOrd = guessOrd1.toLowerCase();
     get("myTextWord").innerHTML = "";
     if (guessOrd == get("ord").innerHTML){
-        alert("Spillet er over")
+        alert("The game is over!")
     }else{
         testWord();
     }
@@ -48,10 +48,10 @@ function sjekkOrd(){
 function testWord(){
     //check if user has more tries
     if (tries <= 0){
-        alert("Spillet er ferdig, venligst restart siden for å prøve igjen");
+        alert("The game is over, please restart the page");
         get("myTextWord").value = "";
     }else if(get("ord").innerHTML==word){
-        alert("Spillet er ferdig, venligst restart siden for å prøve igjen")
+        alert("The game is over, please restart the page")
         get("myTextWord").value="";
     }else{
         //grabs the guess from HTML
@@ -61,7 +61,7 @@ function testWord(){
         guessed.push(guessedWord);
         //checks if it was correct
         if (word == guessedWord){
-            get("result").innerHTML = "Gratulerer, du gjettet ordet!";
+            get("result").innerHTML = "Congratulations you won! ";
             get("ord").innerHTML = word;
             get("myTextWord").value = "";
         //this plays if the guess was wrong
@@ -81,9 +81,9 @@ function testWord(){
             draw();
         }
         if (tries == 0){
-            get("result").innerHTML = "Beklager, du tapte, ordet var " + word;
+            get("result").innerHTML = "Sorry, you lost. The word was" + word;
         }else if(whatTheUserSeesWord == word){
-            get("result").innerHTML = "Gratulerer, du gjettet ordet!";
+            get("result").innerHTML = "Congratulations you guessed the word!";
         }
         //removes the guess from the text input, ready for new guess
         get("myText").value = "";
@@ -96,7 +96,7 @@ function sjekkBokstav(){
     var guess1 = get("myText").value;
     var guess = guess1.toLowerCase();
     if (guessed.includes(guess)){
-        alert("Du har allerede gjettet den bokstaven, venligst gjett en ny!");
+        alert("You have already gussed that letter, please guess another one!");
     }else{
         testLetter();
     }
@@ -105,7 +105,7 @@ function sjekkBokstav(){
 function testLetter(){
     //checks if the user is out of tries or they are done guessing
     if (tries <= 0 || get("ord").innerHTML == word){
-        alert("Spillet er ferdig, venligst restart siden for å prøve igjen");
+        alert("The game is over, please restart the page");
         get("myText").value = "";
     }else{
         //grabs the guess from HTML
@@ -135,9 +135,9 @@ function testLetter(){
         document.getElementById("ord").innerHTML = whatTheUserSeesWord;
         //checks if the user lost
         if (tries == 0){
-            get("result").innerHTML = "Beklager, du tapte, ordet var " + word;
+            get("result").innerHTML = "Sorry, you lost. The word was " + word;
         }else if(whatTheUserSeesWord == word){
-            get("result").innerHTML = "Gratulerer, du gjettet ordet!";
+            get("result").innerHTML = "Congratulations you guessed the word!";
         }
         //removes the guess from the text input, ready for new guess
         get("myText").value = "";
