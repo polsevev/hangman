@@ -1,3 +1,3 @@
 # hangman
 
-Link to a live version: https://rolfmartinglomsrud.com
+Link to a live version: http://rolfmartinglomsrud.com
